@@ -70,3 +70,26 @@ The bot will have the following handlers:
 - /help: This handler will be used to show the help message.
 - like: This handler will be used to like a message.
 
+## List of tasks
+
+### Task 1: Create a Class for the like database
+
+1. Create a class for the like database.
+
+Atributes:
+
+- likes: This attribute will be used to store the number of likes a message has received.
+- dislikes: This attribute will be used to store the number of dislikes a message has received.
+- data: This attribute will be used to store the JSON file.
+
+Methods:
+
+- __init__: This method will be used to initialize the class and it will load the JSON file if it doesn't exist it will create it.
+- add_like: This method will be used to add a like to a message in the database.
+- add_dislike: This method will be used to add a dislike to a message in the database.
+- remove_like: This method will be used to remove a like to a message in the database.
+- remove_dislike: This method will be used to remove a dislike to a message in the database.
+- get_likes: This method will be used to get the number of likes a message has received.
+- get_dislikes: This method will be used to get the number of dislikes a message has received.
+- add_image: This method will be used to add an image to a message in the database.
+
