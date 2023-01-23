@@ -3,8 +3,16 @@ import json
 class LikeDB:
     def __init__(self, filename):
         self.filename = filename
-        with open(filename, 'r') as f:
-            self.data = json.load(f)
+        self.data = {
+            'likes': {},
+        }
+        try:
+            with open(filename, 'r') as f:
+                self.data = json.load(f)
+        except :
+            with open(filename, 'w') as f:
+                json.dump(self.data, f)
+        # 
 
     def get_likes(self, user_id: int) -> list:
         """
@@ -40,6 +48,8 @@ class LikeDB:
         """
 
         pass
+
+like = LikeDB('like.json')
 
     
         
