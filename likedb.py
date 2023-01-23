@@ -11,7 +11,7 @@ class LikeDB:
                 self.data = json.load(f)
         except :
             with open(filename, 'w') as f:
-                json.dump(self.data, f)
+                json.dump(self.data, f, indent=4)
         # 
 
     def get_likes(self, user_id: int) -> list:
@@ -57,16 +57,18 @@ class LikeDB:
             image_id (int): The image_id of the image to add
         """
 
-        pass
+        self.data['likes'][image_id] = {}
+        self.save()
 
     def save(self) -> None:
         """
         Saves the database to the file
         """
 
-        pass
+        with open(self.filename, 'w') as f:
+            json.dump(self.data, f, indent=4)
 
-like = LikeDB('like.json')
+# like = LikeDB('like.json')
 
     
         

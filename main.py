@@ -1,10 +1,10 @@
 from telegram.ext import Updater,CommandHandler,CallbackContext,MessageHandler,Filters,CallbackQueryHandler
 from telegram import Update,ReplyKeyboardMarkup,KeyboardButton,InlineKeyboardMarkup,InlineKeyboardButton
 import os
-
+from likedb import LikeDB
 TOKEN = os.environ['TOKEN']
 
-
+like_db = LikeDB('likes.json')
 def start(update: Update,context: CallbackContext):
     bot = context.bot
     bot.send_message(chat_id='@image_like',text="Hello World")
@@ -14,6 +14,8 @@ def sendImage(update: Update,context: CallbackContext):
     bot = context.bot
     # Get image id from update
     image_id = update.message.photo[-1].file_id
+    # Add image to database
+    like_db.addImage(image_id)
     # Create inline keyboard
     like_emoji = u'\U0001F44D'
     dislike_emoji = u'\U0001F44E'
