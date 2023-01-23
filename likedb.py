@@ -49,6 +49,23 @@ class LikeDB:
 
         pass
 
+    def addImage(self,image_id:int) -> None:
+        """
+        Adds an image to the database
+
+        args:
+            image_id (int): The image_id of the image to add
+        """
+
+        pass
+
+    def save(self) -> None:
+        """
+        Saves the database to the file
+        """
+
+        pass
+
 like = LikeDB('like.json')
 
     
