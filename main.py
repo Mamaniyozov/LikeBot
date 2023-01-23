@@ -14,9 +14,19 @@ def sendImage(update: Update,context: CallbackContext):
     bot = context.bot
     # Get image id from update
     image_id = update.message.photo[-1].file_id
+    # Create inline keyboard
+    like_emoji = u'\U0001F44D'
+    dislike_emoji = u'\U0001F44E'
+    keyboard = InlineKeyboardMarkup([[
+        InlineKeyboardButton(like_emoji,callback_data='like'),
+        InlineKeyboardButton(dislike_emoji,callback_data='dislike')
+        ]])
+    bot.send_photo(
+        chat_id='@image_like',
+        photo=image_id,
+        caption="Hello World",
+        reply_markup=keyboard)
 
-    
-    bot.send_photo(chat_id='@image_like',photo=image_id,caption="Hello World")
     update.message.reply_text("Image has been sent to @image_like")
 
 updater = Updater(token=TOKEN)
