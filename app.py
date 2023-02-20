@@ -35,5 +35,8 @@ def main():
         dp.process_update(update=update)
 
         return {'status': 200}
+if __name__ == '__main__':
+    # Run the app in local network
+    app.run()
     
 print(bot.get_webhook_info())
