@@ -27,11 +27,14 @@ def query(update: Update, context: CallbackContext):
     m=0
     if quer.data=='dislike👎':
         m=LikeDB.add_dislike()
-        print(m)
+        b=LikeDB.pop_like()
+        print(m,b)
+        
         update.message.reply_text("Rate the picture")
     if quer.data=='like👍':
         n=LikeDB.add_like()
-        print(n)
+        c=LikeDB.pop_dislike()
+        print(n,c)
         
 
 

@@ -3,12 +3,12 @@ from flask import Flask, request
 from telegram import Bot, Update
 from telegram.ext import Dispatcher, CommandHandler, MessageHandler, CallbackQueryHandler, Filters
  
+app = Flask(__name__)
 from main import(
     start,
     query
 )
 
-app = Flask(__name__)
 
 # bot
 TOKEN = os.environ['TOKEN']
