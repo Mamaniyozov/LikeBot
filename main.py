@@ -1,40 +1,44 @@
 from telegram.ext import Updater,CommandHandler,CallbackContext,MessageHandler,Filters,CallbackQueryHandler
 from telegram import Update,ReplyKeyboardMarkup,KeyboardButton,InlineKeyboardMarkup,InlineKeyboardButton
 import os
-from likedb import LikeDB
+from likedb  import LikeDB
+
+
 TOKEN = os.environ['TOKEN']
+# like_db = LikeDB['likes.json']
 
-like_db = LikeDB('likes.json')
 def start(update: Update,context: CallbackContext):
+    chat_id=update.message.chat.id
+    mark=InlineKeyboardMarkup([
+        [InlineKeyboardButton(text="like👍",callback_data='like👍')],
+        [InlineKeyboardButton(text="dislike👎",callback_data='dislike👎')]
+    ])
     bot = context.bot
-    bot.send_message(chat_id='@image_like',text="Hello World")
+    bot.sendPhoto(chat_id,"https://pics.freeicons.io/uploads/icons/png/18727039041580202142-512.png",reply_markup=mark)
     update.message.reply_text("Hello World")
-
-def sendImage(update: Update,context: CallbackContext):
+def query(update: Update, context: CallbackContext):
+    
+    
+    quer=update.callback_query
+    quer.answer("Loading")
+    chat_id=quer.message.chat_id
     bot = context.bot
-    # Get image id from update
-    image_id = update.message.photo[-1].file_id
-    # Add image to database
-    like_db.addImage(image_id)
-    # Create inline keyboard
-    like_emoji = u'\U0001F44D'
-    dislike_emoji = u'\U0001F44E'
-    keyboard = InlineKeyboardMarkup([[
-        InlineKeyboardButton(like_emoji,callback_data='like'),
-        InlineKeyboardButton(dislike_emoji,callback_data='dislike')
-        ]])
-    bot.send_photo(
-        chat_id='@image_like',
-        photo=image_id,
-        caption="Hello World",
-        reply_markup=keyboard)
+    n=0
+    m=0
+    if quer.data=='dislike👎':
+        m=LikeDB.add_dislike()
+        print(m)
+        update.message.reply_text("Rate the picture")
+    if quer.data=='like👍':
+        n=LikeDB.add_like()
+        print(n)
+        
 
-    update.message.reply_text("Image has been sent to @image_like")
 
 updater = Updater(token=TOKEN)
 
 updater.dispatcher.add_handler(CommandHandler('start',start))
-updater.dispatcher.add_handler(MessageHandler(Filters.photo,sendImage))
+updater.dispatcher.add_handler(CallbackQueryHandler(query))
 
 updater.start_polling()
 updater.idle()
